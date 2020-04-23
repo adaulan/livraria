@@ -276,7 +276,5 @@ INSERT INTO Usuario (Nome,Usuario,Senha,Cargo) VALUE ('Adaulan Gomes','adaulan',
         INSERT INTO categoria(NOME) VALUES ("Cronica");
         INSERT INTO categoria(NOME) VALUES ("Biografia");
         INSERT INTO categoria(NOME) VALUES ("Games");
-        INSERT INTO categoria(NOME) VALUES ("Investigação");
-        
-                
+        INSERT INTO categoria(NOME) VALUES ("Investigação");  
 */
