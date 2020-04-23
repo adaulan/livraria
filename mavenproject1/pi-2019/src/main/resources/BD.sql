@@ -1,4 +1,153 @@
-        CREATE DATABASE PI_III;
+<<<----------- BANCO ADAULAN ------------>>>
+  CREATE DATABASE PI_III;
+
+  USE PI_III;
+
+
+    CREATE TABLE Usuario(
+    ID 		INT NOT NULL UNIQUE NOT NULL AUTO_INCREMENT,
+    Nome 		VARCHAR(255) NOT NULL,
+    DatNasc 	DATE,
+    CPF 	VARCHAR (14) UNIQUE NOT NULL,
+    Usuario 	VARCHAR(255) UNIQUE NOT NULL,
+    Senha	VARCHAR(255) UNIQUE NOT NULL,
+    Cargo	VARCHAR(255) NOT NULL,
+    Celular	VARCHAR	(14) NOT NULL,
+    Email	VARCHAR (100) NOT NULL,
+    FilialNome  VARCHAR (255) NOT NULL,
+    CONSTRAINT PK_USUARIO PRIMARY KEY (ID)
+    );
+
+  CREATE TABLE Cliente (
+  ID int(11) NOT NULL AUTO_INCREMENT,
+  Nome varchar(255) NOT NULL,
+  Sobrenome varchar(255) NOT NULL,
+  CPF varchar(14) NOT NULL,
+  RG varchar(14) NOT NULL,
+  Cep varchar(255) NOT NULL,
+  Complemento varchar(255) DEFAULT NULL,
+  Cidade varchar(30) NOT NULL,
+  Estado varchar(30) NOT NULL,
+  Endereco varchar(255) NOT NULL,
+  DataDeNascimento varchar(255) NOT NULL,
+  Celular varchar(255) DEFAULT NULL,
+  Telefone varchar(255) DEFAULT NULL,
+  Email varchar(255) NOT NULL,
+  PRIMARY KEY (ID),
+  UNIQUE KEY CPF (CPF),
+  UNIQUE KEY RG (RG)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+
+
+CREATE TABLE cargos (
+  idCargo int(11) NOT NULL AUTO_INCREMENT,
+  NomeCargo varchar(255) DEFAULT NULL,
+  PRIMARY KEY (idCargo)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
+
+
+CREATE TABLE carrinho (
+  IDLivro int(11) NOT NULL,
+  Quantidade int(11) NOT NULL,
+  IDCarrinho int(11) NOT NULL,
+  Valor float DEFAULT NULL,
+  KEY IDCarrinho (IDCarrinho),
+  CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (IDCarrinho) REFERENCES venda (IDVenda)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE categoria (
+  IDCategoria int(11) NOT NULL AUTO_INCREMENT,
+  Nome varchar(255) NOT NULL,
+  PRIMARY KEY (IDCategoria),
+  UNIQUE KEY UC_NOME (Nome)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1
+
+
+CREATE TABLE formadepagamento (
+  IdPagamento int(11) NOT NULL AUTO_INCREMENT,
+  Descricao varchar(255) DEFAULT NULL,
+  PRIMARY KEY (IdPagamento)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1
+
+
+CREATE TABLE funcionario (
+  ID int(11) NOT NULL AUTO_INCREMENT,
+  IdFilial int(11) NOT NULL,
+  Nome varchar(255) NOT NULL,
+  Sexo varchar(9) NOT NULL,
+  DatNasc varchar(10) NOT NULL,
+  CPF varchar(14) NOT NULL,
+  Cargo varchar(30) NOT NULL,
+  Deptmento varchar(30) NOT NULL,
+  Celular varchar(14) NOT NULL,
+  Email varchar(100) NOT NULL,
+  UserName varchar(30) NOT NULL,
+  Senha varchar(30) NOT NULL,
+  Ativo tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (ID),
+  UNIQUE KEY CPF (CPF)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+CREATE TABLE livro (
+  ID int(11) NOT NULL AUTO_INCREMENT,
+  NomeLivro varchar(255) NOT NULL,
+  Autor varchar(255) NOT NULL,
+  Editora varchar(255) NOT NULL,
+  Descricao varchar(255) NOT NULL,
+  ValorVenda float NOT NULL,
+  ValorCusto float NOT NULL,
+  Categoria varchar(30) NOT NULL,
+  Quantidade int(11) DEFAULT NULL,
+  DataCadastro varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+
+
+CREATE TABLE venda (
+  IDCliente int(11) NOT NULL,
+  IDVenda int(11) NOT NULL,
+  DataVenda date DEFAULT NULL,
+  Valor float DEFAULT NULL,
+  FormaPagamento varchar(255) DEFAULT NULL,
+  PRIMARY KEY (IDVenda),
+  KEY IDCliente (IDCliente),
+  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (IDCliente) REFERENCES cliente (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+        Insert into formadepagamento(Descricao) Values ("Crédito 1x");
+        Insert into formadepagamento(Descricao) Values ("Crédito 2x");
+        Insert into formadepagamento(Descricao) Values ("Crédito 3x");
+        Insert into formadepagamento(Descricao) Values ("Crédito 4x");
+        Insert into formadepagamento(Descricao) Values ("Crédito 5x");
+        Insert into formadepagamento(Descricao) Values ("Crédito 6x");
+        Insert into formadepagamento(Descricao) Values ("Débito");
+        Insert into formadepagamento(Descricao) Values ("Dinheiro");
+
+        Insert into Cargos(NomeCargo) Values ("Vendedor");
+        Insert into Cargos(NomeCargo) Values ("Gerente");
+        Insert into Cargos(NomeCargo) Values ("Estoquista");
+	Insert into Cargos(NomeCargo) Values ("Suporte");
+        Insert into Cargos(NomeCargo) Values ("Diretor");        
+        Insert into Cargos(NomeCargo) Values ("TI");        
+        
+        INSERT INTO categoria(NOME) VALUES ("Terror");
+        INSERT INTO categoria(NOME) VALUES ("Ação");
+        INSERT INTO categoria(NOME) VALUES ("Aventura");
+        INSERT INTO categoria(NOME) VALUES ("Horror");
+        INSERT INTO categoria(NOME) VALUES ("Suspense");
+        INSERT INTO categoria(NOME) VALUES ("Romance");
+        INSERT INTO categoria(NOME) VALUES ("Cronica");
+        INSERT INTO categoria(NOME) VALUES ("Biografia");
+        INSERT INTO categoria(NOME) VALUES ("Games");
+        INSERT INTO categoria(NOME) VALUES ("Investigação");
+
+        INSERT INTO Usuario (Nome,Usuario,Senha,Cargo) VALUE ('Antonio Nadson','NadsonJR','1234','Diretor');
+
+
+     /*   CREATE DATABASE PI_III;
 
         USE PI_III;
 
@@ -100,6 +249,7 @@
         );	
 
         INSERT INTO Usuario (Nome,Usuario,Senha,Cargo) VALUE ('Antonio Nadson','NadsonJR','$2a$10$nzAmEFObbTIe66g.dAZyYeRrKsfECiaU4u3svJTgVN3drvmjIxw.y','Diretor');
+INSERT INTO Usuario (Nome,Usuario,Senha,Cargo) VALUE ('Adaulan Gomes','adaulan','adaulan','Diretor');
 
         Insert into formadepagamento(Descricao) Values ("Crédito 1x");
         Insert into formadepagamento(Descricao) Values ("Crédito 2x");
@@ -129,141 +279,4 @@
         INSERT INTO categoria(NOME) VALUES ("Investigação");
         
                 
-
-
-
-
-
-<<<----------- BANCO ADAULAN ------------>>>
-  CREATE DATABASE PI_III;
-
-  USE PI_III;
-
-
-  CREATE TABLE Cliente (
-  ID int(11) NOT NULL AUTO_INCREMENT,
-  Nome varchar(255) NOT NULL,
-  Sobrenome varchar(255) NOT NULL,
-  CPF varchar(14) NOT NULL,
-  RG varchar(14) NOT NULL,
-  Cep varchar(255) NOT NULL,
-  Complemento varchar(255) DEFAULT NULL,
-  Cidade varchar(30) NOT NULL,
-  Estado varchar(30) NOT NULL,
-  Endereco varchar(255) NOT NULL,
-  DataDeNascimento varchar(255) NOT NULL,
-  Celular varchar(255) DEFAULT NULL,
-  Telefone varchar(255) DEFAULT NULL,
-  Email varchar(255) NOT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY CPF (CPF),
-  UNIQUE KEY RG (RG)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
-
-
-CREATE TABLE cargos (
-  idCargo int(11) NOT NULL AUTO_INCREMENT,
-  NomeCargo varchar(255) DEFAULT NULL,
-  PRIMARY KEY (idCargo)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8
-
-
-CREATE TABLE carrinho (
-  IDLivro int(11) NOT NULL,
-  Quantidade int(11) NOT NULL,
-  IDCarrinho int(11) NOT NULL,
-  Valor float DEFAULT NULL,
-  KEY IDCarrinho (IDCarrinho),
-  CONSTRAINT carrinho_ibfk_1 FOREIGN KEY (IDCarrinho) REFERENCES venda (IDVenda)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
-
-CREATE TABLE categoria (
-  IDCategoria int(11) NOT NULL AUTO_INCREMENT,
-  Nome varchar(255) NOT NULL,
-  PRIMARY KEY (IDCategoria),
-  UNIQUE KEY UC_NOME (Nome)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1
-
-
-CREATE TABLE formadepagamento (
-  IdPagamento int(11) NOT NULL AUTO_INCREMENT,
-  Descricao varchar(255) DEFAULT NULL,
-  PRIMARY KEY (IdPagamento)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1
-
-
-CREATE TABLE funcionario (
-  ID int(11) NOT NULL AUTO_INCREMENT,
-  IdFilial int(11) NOT NULL,
-  Nome varchar(255) NOT NULL,
-  Sexo varchar(9) NOT NULL,
-  DatNasc varchar(10) NOT NULL,
-  CPF varchar(14) NOT NULL,
-  Cargo varchar(30) NOT NULL,
-  Deptmento varchar(30) NOT NULL,
-  Celular varchar(14) NOT NULL,
-  Email varchar(100) NOT NULL,
-  UserName varchar(30) NOT NULL,
-  Senha varchar(30) NOT NULL,
-  Ativo tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (ID),
-  UNIQUE KEY CPF (CPF)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1
-
-
-CREATE TABLE livro (
-  ID int(11) NOT NULL AUTO_INCREMENT,
-  NomeLivro varchar(255) NOT NULL,
-  Autor varchar(255) NOT NULL,
-  Editora varchar(255) NOT NULL,
-  Descricao varchar(255) NOT NULL,
-  ValorVenda float NOT NULL,
-  ValorCusto float NOT NULL,
-  Categoria varchar(30) NOT NULL,
-  Quantidade int(11) DEFAULT NULL,
-  DataCadastro varchar(255) DEFAULT NULL,
-  PRIMARY KEY (ID)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
-
-
-CREATE TABLE venda (
-  IDCliente int(11) NOT NULL,
-  IDVenda int(11) NOT NULL,
-  DataVenda date DEFAULT NULL,
-  Valor float DEFAULT NULL,
-  FormaPagamento varchar(255) DEFAULT NULL,
-  PRIMARY KEY (IDVenda),
-  KEY IDCliente (IDCliente),
-  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (IDCliente) REFERENCES cliente (ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
-
-        Insert into formadepagamento(Descricao) Values ("Crédito 1x");
-        Insert into formadepagamento(Descricao) Values ("Crédito 2x");
-        Insert into formadepagamento(Descricao) Values ("Crédito 3x");
-        Insert into formadepagamento(Descricao) Values ("Crédito 4x");
-        Insert into formadepagamento(Descricao) Values ("Crédito 5x");
-        Insert into formadepagamento(Descricao) Values ("Crédito 6x");
-        Insert into formadepagamento(Descricao) Values ("Débito");
-        Insert into formadepagamento(Descricao) Values ("Dinheiro");
-
-        Insert into Cargos(NomeCargo) Values ("Vendedor");
-        Insert into Cargos(NomeCargo) Values ("Gerente");
-        Insert into Cargos(NomeCargo) Values ("Estoquista");
-	Insert into Cargos(NomeCargo) Values ("Suporte");
-        Insert into Cargos(NomeCargo) Values ("Diretor");        
-        Insert into Cargos(NomeCargo) Values ("TI");        
-        
-        INSERT INTO categoria(NOME) VALUES ("Terror");
-        INSERT INTO categoria(NOME) VALUES ("Ação");
-        INSERT INTO categoria(NOME) VALUES ("Aventura");
-        INSERT INTO categoria(NOME) VALUES ("Horror");
-        INSERT INTO categoria(NOME) VALUES ("Suspense");
-        INSERT INTO categoria(NOME) VALUES ("Romance");
-        INSERT INTO categoria(NOME) VALUES ("Cronica");
-        INSERT INTO categoria(NOME) VALUES ("Biografia");
-        INSERT INTO categoria(NOME) VALUES ("Games");
-        INSERT INTO categoria(NOME) VALUES ("Investigação");
-
-        INSERT INTO Usuario (Nome,Usuario,Senha,Cargo) VALUE ('Antonio Nadson','NadsonJR','1234','Diretor');
+*/
